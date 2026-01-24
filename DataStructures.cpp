@@ -1,80 +1,79 @@
 #include "DataStructures.h"
 
 
+Node* createNode(Process value) {
+    Node* newNode = new Node;
+    newNode->data = value;
+    newNode->next = NULL;
 
-Node* createNode(int value) {
-    Node* node = new Node;
-    node->data = value;
-    node->next = NULL;
-
-    return node;
-}
-
-void push(Node* &top, int value) {
-    Node* node = createNode(value);
-    if (top == NULL) {
-        top = node;
-        return;
-    }
-    node->next = top;
-    top = node;
+    return newNode;
 }
 
-void print(Node* start) {
-    Node* temp = start;
-    while (temp != NULL)
-    {
-        cout<<"| "<<temp->data<<" |"<<endl;
-        temp = temp->next;
-    }
-    cout<<endl;
-}
-void printStack(Node* top) {
-    print(top);
-}
-int pop(Node* &top) {
-    if(top == NULL) return 0;
-    Node* temp = top;
-    int x = top->data;
-    top = top->next;
-    delete(temp);
-    return x;
-}
+// void push(Node* &top, int value) {
+//     Node* newNode = createNode(value);
+//     if (top == NULL) {
+//         top = newNode;
+//         return;
+//     }
+//     newNode->next = top;
+//     top = newNode;
+// }
 
-int getTop(Node* top) {
-    if(top == NULL) return 0;
-    return top->data;
-}
+// // void print(Node* start) {
+// //     Node* temp = start;
+// //     while (temp != NULL)
+// //     {
+// //         cout<<"| "<<temp->data<<" |"<<endl;
+// //         temp = temp->next;
+// //     }
+// //     cout<<endl;
+// // }
+// void printStack(Node* top) {
+//     print(top);
+// }
+// int pop(Node* &top) {
+//     if(top == NULL) return 0;
+//     Node* temp = top;
+//     int x = top->data;
+//     top = top->next;
+//     delete(temp);
+//     return x;
+// }
 
-bool isStackEmpty(Node* top) {
-    return top == NULL;
-}
+// int getTop(Node* top) {
+//     if(top == NULL) return 0;
+//     return top->data;
+// }
 
-int size(Node* top) {
-    if(top == NULL) return 0;
-    Node* temp  = top;
-    int count = 0;
-    while (temp != NULL) {
-        count++;
-        temp = temp->next;
-    }
-    return count;
-}
+// bool isStackEmpty(Node* top) {
+//     return top == NULL;
+// }
+
+// int size(Node* top) {
+//     if(top == NULL) return 0;
+//     Node* temp  = top;
+//     int count = 0;
+//     while (temp != NULL) {
+//         count++;
+//         temp = temp->next;
+//     }
+//     return count;
+// }
 
 
 // Queue
-void enqueue(Node* &front, Node* &rear, int value) {
-    Node* node = createNode(value);
+void enqueue(Node* &front, Node* &rear, Process value) {
+    Node* newNode = createNode(value);
     if(rear == front && front == NULL) {
-        rear = front = node;
+        rear = front = newNode;
         return;
     }
-    rear->next = node;
-    rear = node;
+    rear->next = newNode;
+    rear = newNode;
 }
 
-int dequeue(Node* &front, Node* &rear) {
-    int x = 0;
+Process dequeue(Node* &front, Node* &rear) {
+    Process x;
     if(rear == front && front == NULL) {
         return x;
     } else if (front == rear) {
@@ -93,17 +92,23 @@ int dequeue(Node* &front, Node* &rear) {
     }
 }
 
-int getFront(Node* front) {
-    if(front == NULL) return 0;
+Process getFront(Node* front) {
+    if(front == NULL) return {-1, 0, 0 ,0 ,0 ,0};
     return front->data;
 }
-int getRear(Node* rear) {
-    if(rear == NULL) return 0;
+Process getRear(Node* rear) {
+    if(rear == NULL) return {-1, 0, 0 ,0 ,0 ,0};
     return rear->data;
 }
 
 void printQueue(Node* front) {
-    print(front);
+    Node* temp = front;
+    while (temp != NULL)
+    {
+        cout<<"| "<<temp->data.id<<" |"<<endl;
+        temp = temp->next;
+    }
+    cout<<"NULL"<<endl;
 }
 bool isQueueEmpty(Node* front) {
     return front == NULL;
