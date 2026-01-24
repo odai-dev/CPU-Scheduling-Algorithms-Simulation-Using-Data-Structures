@@ -8,21 +8,19 @@ struct Node
 };
 
 
-typedef Node* nodeptr;
-
 
 // Stack functions
-void push(nodeptr &top, int value);
-int pop(nodeptr &top);
-int getTop(nodeptr top);
-bool isStackEmpty(nodeptr top);
-int size(nodeptr top);
-void printStack(nodeptr top);
+void push(Node* &top, int value);
+int pop(Node* &top);
+int getTop(Node* top);
+bool isStackEmpty(Node* top);
+int size(Node* top);
+void printStack(Node* top);
 
 // Queue functions
-void enqueue(nodeptr &front, nodeptr &rear, int value);
-int dequeue(nodeptr &front, nodeptr &rear);
-int getFront(nodeptr front);
-int getRear(nodeptr rear);
-bool isQueueEmpty(nodeptr front);
-void printQueue(nodeptr front);
+void enqueue(Node* &front, Node* &rear, int value);
+int dequeue(Node* &front, Node* &rear);
+int getFront(Node* front);
+int getRear(Node* rear);
+bool isQueueEmpty(Node* front);
+void printQueue(Node* front);

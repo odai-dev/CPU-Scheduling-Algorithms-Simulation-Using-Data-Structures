@@ -2,16 +2,16 @@
 
 
 
-nodeptr createNode(int value) {
-    nodeptr node = new Node;
+Node* createNode(int value) {
+    Node* node = new Node;
     node->data = value;
     node->next = NULL;
 
     return node;
 }
 
-void push(nodeptr &top, int value) {
-    nodeptr node = createNode(value);
+void push(Node* &top, int value) {
+    Node* node = createNode(value);
     if (top == NULL) {
         top = node;
         return;
@@ -20,8 +20,8 @@ void push(nodeptr &top, int value) {
     top = node;
 }
 
-void print(nodeptr start) {
-    nodeptr temp = start;
+void print(Node* start) {
+    Node* temp = start;
     while (temp != NULL)
     {
         cout<<"| "<<temp->data<<" |"<<endl;
@@ -29,30 +29,30 @@ void print(nodeptr start) {
     }
     cout<<endl;
 }
-void printStack(nodeptr top) {
+void printStack(Node* top) {
     print(top);
 }
-int pop(nodeptr &top) {
+int pop(Node* &top) {
     if(top == NULL) return 0;
-    nodeptr temp = top;
+    Node* temp = top;
     int x = top->data;
     top = top->next;
     delete(temp);
     return x;
 }
 
-int getTop(nodeptr top) {
+int getTop(Node* top) {
     if(top == NULL) return 0;
     return top->data;
 }
 
-bool isStackEmpty(nodeptr top) {
+bool isStackEmpty(Node* top) {
     return top == NULL;
 }
 
-int size(nodeptr top) {
+int size(Node* top) {
     if(top == NULL) return 0;
-    nodeptr temp  = top;
+    Node* temp  = top;
     int count = 0;
     while (temp != NULL) {
         count++;
@@ -63,8 +63,8 @@ int size(nodeptr top) {
 
 
 // Queue
-void enqueue(nodeptr &front, nodeptr &rear, int value) {
-    nodeptr node = createNode(value);
+void enqueue(Node* &front, Node* &rear, int value) {
+    Node* node = createNode(value);
     if(rear == front && front == NULL) {
         rear = front = node;
         return;
@@ -73,19 +73,19 @@ void enqueue(nodeptr &front, nodeptr &rear, int value) {
     rear = node;
 }
 
-int dequeue(nodeptr &front, nodeptr &rear) {
+int dequeue(Node* &front, Node* &rear) {
     int x = 0;
     if(rear == front && front == NULL) {
         return x;
     } else if (front == rear) {
-        nodeptr temp = front;
+        Node* temp = front;
         x = front->data;
         front = NULL;
         rear = NULL;
         delete(temp);
         return x;
     } else {
-        nodeptr temp = front;
+        Node* temp = front;
         x = front->data;
         front = front->next;
         delete(temp);
@@ -93,18 +93,18 @@ int dequeue(nodeptr &front, nodeptr &rear) {
     }
 }
 
-int getFront(nodeptr front) {
+int getFront(Node* front) {
     if(front == NULL) return 0;
     return front->data;
 }
-int getRear(nodeptr rear) {
+int getRear(Node* rear) {
     if(rear == NULL) return 0;
     return rear->data;
 }
 
-void printQueue(nodeptr front) {
+void printQueue(Node* front) {
     print(front);
 }
-bool isQueueEmpty(nodeptr front) {
+bool isQueueEmpty(Node* front) {
     return front == NULL;
 }

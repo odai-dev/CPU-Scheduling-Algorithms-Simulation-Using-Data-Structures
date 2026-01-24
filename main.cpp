@@ -4,7 +4,7 @@ using namespace std;
 
 
 int main() {
-    nodeptr Front = NULL, Rear = NULL; // Queue pointers
+    Node *Front = NULL, *Rear = NULL; // Queue pointers
     enqueue(Front, Rear, 10);
     enqueue(Front, Rear, 20);
     enqueue(Front, Rear, 30);
