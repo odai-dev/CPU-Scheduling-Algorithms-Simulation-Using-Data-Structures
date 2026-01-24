@@ -1,27 +1,30 @@
 #include <iostream>
+#include "Process.h"
 using namespace std;
 
-struct Process {
-    int id;
-    int arrivalTime;
-    int burstTime;
-    int priority;
-    int remainingTime;
-    int waitingTime;
-    int turnaroundTime;
-    int completionTime;
-};
 
-struct Node
-{
+class Node {
+public:
     Process data;
     Node* next;
+    Node(Process p) : data(p), next(nullptr) {
+        if (data.id < 0) {
+            throw invalid_argument("invalid id");
+        }
+    }
 };
 
-// Queue functions
-void enqueue(Node* &front, Node* &rear, Process value);
-Process dequeue(Node* &front, Node* &rear);
-Process getFront(Node* front);
-Process getRear(Node* rear);
-bool isQueueEmpty(Node* front);
-void printQueue(Node* front);
+class ProcessQueue {
+private:
+    Node* front;
+    Node* rear;
+public:
+    ProcessQueue();
+    ~ProcessQueue();
+    void enqueue(Process value);
+    Process dequeue();
+    Process getFront();
+    Process getRear();
+    bool isEmpty();
+    void print();
+};

@@ -1,55 +1,54 @@
 #include "DataStructures.h"
 
+ProcessQueue::ProcessQueue() : front(nullptr), rear(nullptr) {}
 
-Node* createNode(Process value) {
-    Node* newNode = new Node;
-    newNode->data = value;
-    newNode->next = NULL;
-
-    return newNode;
+ProcessQueue::~ProcessQueue() {
+    while (!isEmpty())
+    {
+        dequeue();
+    }
+    
 }
 
-// Queue
-void enqueue(Node* &front, Node* &rear, Process value) {
-    Node* newNode = createNode(value);
-    if(rear == front && front == NULL) {
+void ProcessQueue::enqueue( Process value) {
+    Node* newNode = new Node(value);
+    if(isEmpty()) {
         rear = front = newNode;
         return;
-    }
-    rear->next = newNode;
-    rear = newNode;
-}
-
-Process dequeue(Node* &front, Node* &rear) {
-    Process x;
-    if(rear == front && front == NULL) {
-        return x;
-    } else if (front == rear) {
-        Node* temp = front;
-        x = front->data;
-        front = NULL;
-        rear = NULL;
-        delete(temp);
-        return x;
     } else {
-        Node* temp = front;
-        x = front->data;
-        front = front->next;
-        delete(temp);
-        return x;
+        rear->next = newNode;
+        rear = newNode;        
     }
 }
 
-Process getFront(Node* front) {
-    if(front == NULL) return {-1, 0, 0, 0, 0, 0, 0, 0};
+Process ProcessQueue::dequeue() {
+    if(isEmpty()) {
+        return {-1, 0, 0, 0, 0, 0 , 0, 0};
+    } 
+    
+    Node* temp = front;
+    Process p  = front->data;
+
+    if(front == rear) {
+        front = rear = nullptr;
+    } else {
+        front = front->next;
+    }
+
+    delete(temp);
+    return p;
+}
+
+Process ProcessQueue::getFront() {
+    if(isEmpty()) return {-1, 0, 0, 0, 0, 0, 0, 0};
     return front->data;
 }
-Process getRear(Node* rear) {
+Process ProcessQueue::getRear() {
     if(rear == NULL) return {-1, 0, 0, 0, 0, 0, 0, 0};
     return rear->data;
 }
 
-void printQueue(Node* front) {
+void ProcessQueue::print() {
     Node* temp = front;
     while (temp != NULL)
     {
@@ -58,6 +57,6 @@ void printQueue(Node* front) {
     }
     cout<<endl;
 }
-bool isQueueEmpty(Node* front) {
+bool ProcessQueue::isEmpty() {
     return front == NULL;
 }
