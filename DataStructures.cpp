@@ -9,58 +9,6 @@ Node* createNode(Process value) {
     return newNode;
 }
 
-// void push(Node* &top, int value) {
-//     Node* newNode = createNode(value);
-//     if (top == NULL) {
-//         top = newNode;
-//         return;
-//     }
-//     newNode->next = top;
-//     top = newNode;
-// }
-
-// // void print(Node* start) {
-// //     Node* temp = start;
-// //     while (temp != NULL)
-// //     {
-// //         cout<<"| "<<temp->data<<" |"<<endl;
-// //         temp = temp->next;
-// //     }
-// //     cout<<endl;
-// // }
-// void printStack(Node* top) {
-//     print(top);
-// }
-// int pop(Node* &top) {
-//     if(top == NULL) return 0;
-//     Node* temp = top;
-//     int x = top->data;
-//     top = top->next;
-//     delete(temp);
-//     return x;
-// }
-
-// int getTop(Node* top) {
-//     if(top == NULL) return 0;
-//     return top->data;
-// }
-
-// bool isStackEmpty(Node* top) {
-//     return top == NULL;
-// }
-
-// int size(Node* top) {
-//     if(top == NULL) return 0;
-//     Node* temp  = top;
-//     int count = 0;
-//     while (temp != NULL) {
-//         count++;
-//         temp = temp->next;
-//     }
-//     return count;
-// }
-
-
 // Queue
 void enqueue(Node* &front, Node* &rear, Process value) {
     Node* newNode = createNode(value);
@@ -93,11 +41,11 @@ Process dequeue(Node* &front, Node* &rear) {
 }
 
 Process getFront(Node* front) {
-    if(front == NULL) return {-1, 0, 0 ,0 ,0 ,0};
+    if(front == NULL) return {-1, 0, 0, 0, 0, 0, 0, 0};
     return front->data;
 }
 Process getRear(Node* rear) {
-    if(rear == NULL) return {-1, 0, 0 ,0 ,0 ,0};
+    if(rear == NULL) return {-1, 0, 0, 0, 0, 0, 0, 0};
     return rear->data;
 }
 
@@ -108,7 +56,7 @@ void printQueue(Node* front) {
         cout<<"| "<<temp->data.id<<" |"<<endl;
         temp = temp->next;
     }
-    cout<<"NULL"<<endl;
+    cout<<endl;
 }
 bool isQueueEmpty(Node* front) {
     return front == NULL;

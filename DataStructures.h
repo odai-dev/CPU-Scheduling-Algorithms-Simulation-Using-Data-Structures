@@ -18,16 +18,6 @@ struct Node
     Node* next;
 };
 
-
-
-// // Stack functions
-// void push(Node* &top, int value);
-// int pop(Node* &top);
-// int getTop(Node* top);
-// bool isStackEmpty(Node* top);
-// int size(Node* top);
-// void printStack(Node* top);
-
 // Queue functions
 void enqueue(Node* &front, Node* &rear, Process value);
 Process dequeue(Node* &front, Node* &rear);
