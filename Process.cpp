@@ -1,7 +1,14 @@
 #include "Process.h"
 
-Process::Process(int id, int arrivalTime, int burstTime, int priority,
-                 int remainingTime, int waitingTime, int turnaroundTime, int completionTime)
-    : id(id), arrivalTime(arrivalTime), burstTime(burstTime), priority(priority),
-      remainingTime(remainingTime), waitingTime(waitingTime),
-      turnaroundTime(turnaroundTime), completionTime(completionTime) {}
+Process::Process(int id, int arrivalTime, int burstTime, int priority) {
+    this->id = id;
+    this->arrivalTime = arrivalTime;
+    this->burstTime = burstTime;
+    this->priority = priority;
+    
+    // Automatically set these so you don't have to pass them in main
+    this->remainingTime = burstTime; 
+    this->waitingTime = 0;
+    this->turnaroundTime = 0;
+    this->completionTime = 0;
+}

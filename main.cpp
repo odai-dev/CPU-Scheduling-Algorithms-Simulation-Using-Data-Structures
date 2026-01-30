@@ -1,17 +1,17 @@
-#include "DataStructures.h"
-#include "Scheduler.h"
+
 #include <iostream>
+#include "Scheduler.h"
 using namespace std;
 
 
 int main() {
-    Process processes[5] = {
-        // ID, Arrival, Burst, Priority, Remaining, Waiting, Turnaround, Completion
-        {1, 0, 5, 2, 5, 0, 0, 0},
-        {2, 1, 3, 1, 3, 0, 0, 0},
-        {3, 2, 8, 3, 8, 0, 0, 0},
-        {4, 3, 2, 4, 2, 0, 0, 0},
-        {5, 4, 4, 2, 4, 0, 0, 0}
+Process processes[] = {
+    // ID, Arrival, Burst, Priority
+    {1, 0,  5, 2},
+    {2, 1,  3, 1},
+    {3, 2,  8, 3},
+    {4, 3,  2, 4},
+    {5, 50, 4, 2}
     };
 
     ProcessList list;
@@ -32,7 +32,7 @@ int main() {
         switch (choice)
         {
         case 1 :
-            // Scheduler::runFCFS(list);
+            Scheduler::runFCFS(list);
             break;
         case 2:
             // Scheduler::runSJF(list);

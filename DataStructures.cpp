@@ -23,7 +23,7 @@ void ProcessQueue::enqueue( Process value) {
 
 Process ProcessQueue::dequeue() {
     if(isEmpty()) {
-        return {-1, 0, 0, 0, 0, 0 , 0, 0};
+        return {-1, 0, 0, 0};
     } 
     
     Node* temp = front;
@@ -40,11 +40,11 @@ Process ProcessQueue::dequeue() {
 }
 
 Process ProcessQueue::getFront() {
-    if(isEmpty()) return {-1, 0, 0, 0, 0, 0, 0, 0};
+    if(isEmpty()) return {-1, 0, 0, 0};
     return front->data;
 }
 Process ProcessQueue::getRear() {
-    if(rear == NULL) return {-1, 0, 0, 0, 0, 0, 0, 0};
+    if(rear == NULL) return {-1, 0, 0, 0};
     return rear->data;
 }
 

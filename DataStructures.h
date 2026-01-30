@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Process.h"
 using namespace std;
@@ -35,7 +36,7 @@ private:
     Node* head;
     int count;
 public:
-    ProcessList() : head(nullptr), count(0) {}
+    ProcessList() ;
     void addProcess(Process p);
     Node* getHead();
     int getSize();
