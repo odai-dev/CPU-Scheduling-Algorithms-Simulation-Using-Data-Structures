@@ -60,3 +60,27 @@ void ProcessQueue::print() {
 bool ProcessQueue::isEmpty() {
     return front == NULL;
 }
+
+ProcessList::ProcessList() : head(nullptr), count(0) {}
+
+void ProcessList::addProcess(Process p) {
+    Node* newNode = new Node(p);
+    if(head == NULL) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != nullptr){
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+    count++;
+}
+
+Node* ProcessList::getHead() {
+    return head;
+}
+
+int ProcessList::getSize() {
+    return count;
+}

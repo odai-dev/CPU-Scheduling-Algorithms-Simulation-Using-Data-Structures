@@ -1,4 +1,5 @@
 #include "DataStructures.h"
+#include "Scheduler.h"
 #include <iostream>
 using namespace std;
 
@@ -13,26 +14,33 @@ int main() {
         {5, 4, 4, 2, 4, 0, 0, 0}
     };
 
-    ProcessQueue q;
+    ProcessList list;
 
     for(int i = 0; i < 5; i++) {
-        q.enqueue(processes[i]);
+        list.addProcess(processes[i]);
     }
 
-    cout << "Initial queue:\n";
-    q.print();
+    int choice;
+    do {
+        cout<<"\n--- CPU Scheduler ---"<<endl;
+        cout<<"1. Run FCFS"<<endl;
+        cout<<"2. Run SJF"<<endl;
+        cout<<"3. Exit"<<endl;
+        cout<<"Enter a choice: ";
+        cin>>choice;
 
-    for(int i = 0; i < 5; i++) {
-        Process p = q.dequeue();
-        cout << "Dequeued Process ID: " << p.id
-             << " | Arrival: " << p.arrivalTime
-             << " | Burst: " << p.burstTime
-             << " | Priority: " << p.priority << endl;
-        cout << "Queue after dequeue:\n";
-        q.print();
-    }
+        switch (choice)
+        {
+        case 1 :
+            // Scheduler::runFCFS(list);
+            break;
+        case 2:
+            // Scheduler::runSJF(list);
+            break;
+        
 
-    cout << "Attempting to dequeue from empty queue:\n";
-    Process p = q.dequeue();
-    cout << "Dequeued Process ID: " << p.id << endl;
+       }
+    } while (choice!= 3);
+    
+    return 0;
 }

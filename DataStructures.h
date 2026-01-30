@@ -28,3 +28,15 @@ public:
     bool isEmpty();
     void print();
 };
+
+
+class ProcessList {
+private:
+    Node* head;
+    int count;
+public:
+    ProcessList() : head(nullptr), count(0) {}
+    void addProcess(Process p);
+    Node* getHead();
+    int getSize();
+};
