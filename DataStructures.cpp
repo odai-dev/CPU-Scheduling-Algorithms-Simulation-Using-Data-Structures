@@ -84,3 +84,52 @@ Node* ProcessList::getHead() {
 int ProcessList::getSize() {
     return count;
 }
+
+// Dynamic arrays will be needed for creating Binary Heap to implement priority queues 
+// The most typical and efficint method
+
+DynamicArray::DynamicArray(int cap) {
+    capacity = (cap > 0) ? cap : 1;
+    size = 0;
+    data = new Process[capacity];
+}
+// a Copy Constructor to satisfy the Rule of Three
+DynamicArray::DynamicArray(const DynamicArray& other) {
+    capacity = other.capacity;
+    size = other.size;
+    data = new Process[capacity];
+    for (int i = 0; i < size; i++) {
+        data[i] = other.data[i];
+    }
+}
+
+
+DynamicArray::~DynamicArray() {
+    delete[] data;
+}
+
+void DynamicArray::resize() {
+    capacity *= 2;
+    Process* newData = new Process[capacity];
+
+    for (int i = 0; i<size; i++) {
+        newData[i] = data[i];
+    }
+    delete[] data;
+    data = newData;
+}
+
+void DynamicArray::push_back(const Process& value) {
+    if (size == capacity) resize();
+    data[size++] = value;
+}
+
+// Overloads the subscript operator to allow DynamicArray objects
+// to be accessed like a regular array e.g arr[i] instead of heap.data[i]
+Process& DynamicArray::operator[](int index) {
+    return data[index];
+}
+
+int DynamicArray::getSize() {
+    return size;
+}
