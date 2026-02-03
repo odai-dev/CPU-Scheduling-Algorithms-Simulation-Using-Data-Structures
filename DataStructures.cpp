@@ -135,4 +135,27 @@ int DynamicArray::getSize() {
 }
 void DynamicArray::removeLast() {
     if(size > 0) size--;
+}
+
+// Priority Queue
+void PriorityQueue::insert(Process p) {
+    heap.push_back(p);
+    heapifyUp(heap.getSize()-1);
 };
+
+void PriorityQueue::heapifyUp(int idx) {
+    if(idx == 0) return;
+    int parentIdx = parent(idx);
+    Process p1 = heap[idx];
+    Process p2 = heap[parentIdx];
+    if(hasHigherPriority( p1,  p2)) {
+        swap(idx, parentIdx);
+        heapifyUp(parentIdx);
+    }
+}
+
+void PriorityQueue::swap(int p1, int p2) {
+    Process temp = heap[p2];
+    heap[p2] = heap[p1];
+    heap[p1] = temp;
+}

@@ -60,3 +60,30 @@ public:
     int getSize();
     void removeLast();
 };
+
+
+class PriorityQueue {
+private: 
+    DynamicArray heap;
+    bool isMinHeap;
+
+    int parent(int i) {return (i-1)/2;};
+    int leftChild(int i) {return 2*i+1;};
+    int rightChild(int i) {return 2*i+2;};
+
+    void heapifyUp(int index);
+    void heapifyDown(int index);
+
+    bool hasHigherPriority(Process p1, Process p2);
+
+    void swap(int p1, int p2);
+
+public:
+    PriorityQueue(bool minMode);
+
+    void insert(Process p);
+    Process extractTop();
+    Process peek();
+    bool isEmpty();
+    int getSize();
+};
