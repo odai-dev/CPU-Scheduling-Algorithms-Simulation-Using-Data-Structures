@@ -4,7 +4,7 @@
 class Scheduler {
 public:
     static void runFCFS(ProcessList& masterList);
-    static void runSJF(ProcessList& masterList);
+    static void runSJF(ProcessList& masterList, bool preemptive);
     static void runPriority(ProcessList& masterList);
 
 private:

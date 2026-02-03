@@ -195,10 +195,10 @@ void PriorityQueue::heapifyDown(int idx) {
 
 bool PriorityQueue::hasHigherPriority(Process p1, Process p2) {
     if (isMinHeap) {
-        if(p1.burstTime == p2.burstTime) {
+        if(p1.remainingTime == p2.remainingTime) {
             return p1.arrivalTime < p2.arrivalTime;
         } else
-        return p1.burstTime < p2.burstTime;
+        return p1.remainingTime < p2.remainingTime;
     } else {
         if(p1.priority == p2.priority) {
             return p1.arrivalTime < p2.arrivalTime;
