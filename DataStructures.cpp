@@ -137,7 +137,7 @@ void DynamicArray::removeLast() {
     if(size > 0) size--;
 }
 
-// Priority Queue
+// Priority Queue (Min-Heap/Max-Heap binary tree) for SJF and Priority Algorithms
 PriorityQueue::PriorityQueue(bool minMode){isMinHeap = minMode;}
 
 void PriorityQueue::enqueue(Process p) {
@@ -193,7 +193,20 @@ void PriorityQueue::heapifyDown(int idx) {
     }
 }
 
-bool PriorityQueue::hasHigherPriority(Process p1, Process p2) {return p1.burstTime < p2.burstTime;}
+bool PriorityQueue::hasHigherPriority(Process p1, Process p2) {
+    if (isMinHeap) {
+        if(p1.burstTime == p2.burstTime) {
+            return p1.arrivalTime < p2.arrivalTime;
+        } else
+        return p1.burstTime < p2.burstTime;
+    } else {
+        if(p1.priority == p2.priority) {
+            return p1.arrivalTime < p2.arrivalTime;
+        } else       
+        return p1.priority < p2.priority;
+    }
+    
+}
 
 Process PriorityQueue::peek() {return heap[0];}
 
