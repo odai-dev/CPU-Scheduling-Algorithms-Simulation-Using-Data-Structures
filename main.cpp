@@ -26,7 +26,9 @@ Process processes[] = {
         cout<<"2. Run SJF"<<endl;
         cout<<"3. Run Preemptive SJF (SRTF)"<<endl;
         cout<<"4. Run Priority"<<endl;
-        cout<<"5. Exit"<<endl;
+        cout<<"5. Run Preemptive Priority"<<endl;
+        cout<<"6. Run Round Robin"<<endl;
+        cout<<"7. Exit"<<endl;
         cout<<"Enter a choice: ";
         cin>>choice;
 
@@ -42,10 +44,18 @@ Process processes[] = {
             Scheduler::runSJF(list, true);
             break;
         case 4:
-            Scheduler::runPriority(list);
+            Scheduler::runPriority(list, false);
+            break;
+        case 5:
+            Scheduler::runPriority(list, true);
+            break;
+        case 6:
+            Scheduler::roundRobin(list,2);
+            break;
 
        }
     } while (choice!= 7);
     
     return 0;
 }
+

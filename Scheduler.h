@@ -5,7 +5,8 @@ class Scheduler {
 public:
     static void runFCFS(ProcessList& masterList);
     static void runSJF(ProcessList& masterList, bool preemptive);
-    static void runPriority(ProcessList& masterList);
+    static void runPriority(ProcessList& masterList, bool preemptive);
+    static void roundRobin(ProcessList& masterList, int quantom);
 
 private:
     static void diplayStats(ProcessList& completedProcesses);
