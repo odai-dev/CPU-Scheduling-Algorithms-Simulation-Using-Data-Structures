@@ -133,3 +133,6 @@ Process& DynamicArray::operator[](int index) {
 int DynamicArray::getSize() {
     return size;
 }
+void DynamicArray::removeLast() {
+    if(size > 0) size--;
+};

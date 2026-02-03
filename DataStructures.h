@@ -57,7 +57,6 @@ public:
 
     void push_back(const Process& value);
     Process &operator[](int index);
-
     int getSize();
+    void removeLast();
 };
-
