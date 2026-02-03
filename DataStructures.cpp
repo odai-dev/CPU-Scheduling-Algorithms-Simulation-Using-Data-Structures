@@ -138,7 +138,9 @@ void DynamicArray::removeLast() {
 }
 
 // Priority Queue
-void PriorityQueue::insert(Process p) {
+PriorityQueue::PriorityQueue(bool minMode){isMinHeap = minMode;}
+
+void PriorityQueue::enqueue(Process p) {
     heap.push_back(p);
     heapifyUp(heap.getSize()-1);
 };
@@ -159,3 +161,42 @@ void PriorityQueue::swap(int p1, int p2) {
     heap[p2] = heap[p1];
     heap[p1] = temp;
 }
+
+Process PriorityQueue::dequeue() {
+    if(isEmpty()) return {-1, 0, 0, 0};
+    Process root  = heap[0];
+
+    if (heap.getSize() == 1) {
+        heap.removeLast();
+        return root;
+    }
+    heap[0] = heap[heap.getSize()-1];
+    heap.removeLast();
+    heapifyDown(0);
+    return root;
+}
+
+void PriorityQueue::heapifyDown(int idx) {
+    int left = leftChild(idx);
+    int right = rightChild(idx);
+    int smallest = idx;
+
+    if (left < heap.getSize() && hasHigherPriority(heap[left], heap[smallest])) {
+        smallest = left;
+    }
+    if (right < heap.getSize() && hasHigherPriority(heap[right], heap[smallest])) {
+        smallest = right;
+    }
+    if(smallest != idx) {
+        swap(idx, smallest);
+        heapifyDown(smallest);
+    }
+}
+
+bool PriorityQueue::hasHigherPriority(Process p1, Process p2) {return p1.burstTime < p2.burstTime;}
+
+Process PriorityQueue::peek() {return heap[0];}
+
+int PriorityQueue::getSize() {return heap.getSize();}
+
+bool PriorityQueue::isEmpty() {return heap.getSize() == 0;}

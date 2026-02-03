@@ -81,8 +81,8 @@ private:
 public:
     PriorityQueue(bool minMode);
 
-    void insert(Process p);
-    Process extractTop();
+    void enqueue(Process p);
+    Process dequeue();
     Process peek();
     bool isEmpty();
     int getSize();
