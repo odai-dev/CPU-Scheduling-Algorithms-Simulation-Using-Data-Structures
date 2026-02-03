@@ -34,7 +34,7 @@ Process processes[] = {
             Scheduler::runFCFS(list);
             break;
         case 2:
-            // Scheduler::runSJF(list);
+            Scheduler::runSJF(list);
             break;
         
 

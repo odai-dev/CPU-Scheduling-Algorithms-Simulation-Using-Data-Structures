@@ -72,3 +72,37 @@ cout << "\n=====================================================================
     cout << "Average Turnaround Time: " << ATT << endl;
     cout << "==========================================================================" << endl;
 }
+
+void Scheduler::runSJF(ProcessList &masterList) {
+    PriorityQueue pq(true);
+    int currentTime = 0;
+    int completed = 0;
+    Node* it = masterList.getHead();
+    int total = masterList.getSize();
+    ProcessList completedProcesses;
+
+
+    while (completed<total) {
+        while(it != nullptr && it->data.arrivalTime <= currentTime) {
+            pq.enqueue(it->data);
+            it = it->next;
+        }
+
+        if(!pq.isEmpty()) {
+            Process p = pq.dequeue();
+
+            p.waitingTime = currentTime - p.arrivalTime;
+            currentTime += p.burstTime;
+            p.completionTime = currentTime;
+            p.turnaroundTime = p.waitingTime + p.burstTime;
+
+            completedProcesses.addProcess(p);
+            completed++;
+        } else {
+            if(it != nullptr) {
+                currentTime = it->data.arrivalTime;
+            }
+        }
+    }
+    Scheduler::diplayStats(completedProcesses);
+}
