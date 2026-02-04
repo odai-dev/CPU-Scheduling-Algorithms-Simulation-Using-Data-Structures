@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+ProcessList Scheduler::timeline;
+
 void Scheduler::diplayStats(ProcessList &completedProcesses) {
     Node* current = completedProcesses.getHead();
     int size = completedProcesses.getSize();
@@ -34,13 +36,14 @@ cout << "\n=====================================================================
     cout << "==========================================================================" << endl;
 }
 
-void Scheduler::runFCFS(ProcessList &masterList) {
+ProcessList Scheduler::runFCFS(ProcessList &masterList) {
    ProcessQueue readyQueue;
    int currentTime = 0;
    int completed = 0;
    Node* it = masterList.getHead();
    int total = masterList.getSize();
    ProcessList completedProcesses;
+   timeline.clear();
 
    while(completed < total) {
         // Check Arrival
@@ -53,6 +56,12 @@ void Scheduler::runFCFS(ProcessList &masterList) {
         // Execution
         if(!readyQueue.isEmpty()) {
             Process p = readyQueue.dequeue();
+            
+            // Log for Gantt Chart (using arrivalTime as StartTime for slice, burstTime as Duration)
+            Process slice = p;
+            slice.arrivalTime = currentTime; // Start Time
+            slice.burstTime = p.burstTime;   // Duration
+            timeline.push_back(slice);
 
             p.waitingTime = currentTime - p.arrivalTime;
             currentTime += p.burstTime;
@@ -68,18 +77,18 @@ void Scheduler::runFCFS(ProcessList &masterList) {
             }
         }
    }
-   Scheduler::diplayStats(completedProcesses);
+   return completedProcesses;
 }
 
 
-void Scheduler::runSJF(ProcessList &masterList, bool preemptive) {
+ProcessList Scheduler::runSJF(ProcessList &masterList, bool preemptive) {
     PriorityQueue pq(true);
     int currentTime = 0;
     int completed = 0;
     Node* it = masterList.getHead();
     int total = masterList.getSize();
     ProcessList completedProcesses;
-
+    timeline.clear();
 
     while (completed<total) {
         while(it != nullptr && it->data.arrivalTime <= currentTime) {
@@ -90,6 +99,13 @@ void Scheduler::runSJF(ProcessList &masterList, bool preemptive) {
         if(!pq.isEmpty()) {
             if(preemptive) {
                 Process p = pq.dequeue();
+                
+                // Log 1-unit slice
+                Process slice = p;
+                slice.arrivalTime = currentTime;
+                slice.burstTime = 1;
+                timeline.push_back(slice);
+
                 p.remainingTime--;
                 currentTime++;
                 if(p.remainingTime > 0) pq.enqueue(p);
@@ -103,6 +119,12 @@ void Scheduler::runSJF(ProcessList &masterList, bool preemptive) {
             } else {
                 Process p = pq.dequeue();
     
+                // Log full slice
+                Process slice = p;
+                slice.arrivalTime = currentTime;
+                slice.burstTime = p.burstTime;
+                timeline.push_back(slice);
+
                 p.waitingTime = currentTime - p.arrivalTime;
                 currentTime += p.burstTime;
     
@@ -118,17 +140,17 @@ void Scheduler::runSJF(ProcessList &masterList, bool preemptive) {
             }
         }
     }
-    Scheduler::diplayStats(completedProcesses);
+    return completedProcesses;
 }
 
-void Scheduler::runPriority(ProcessList &masterList,  bool preemptive) {
+ProcessList Scheduler::runPriority(ProcessList &masterList,  bool preemptive) {
     PriorityQueue pq(false);
     int currentTime = 0;
     int completed = 0;
     Node* it = masterList.getHead();
     int total = masterList.getSize();
     ProcessList completedProcesses;
-
+    timeline.clear();
 
     while (completed<total) {
         while(it != nullptr && it->data.arrivalTime <= currentTime) {
@@ -139,6 +161,13 @@ void Scheduler::runPriority(ProcessList &masterList,  bool preemptive) {
         if(!pq.isEmpty()) {
             if (preemptive) {
                 Process p = pq.dequeue();
+                
+                // Log 1-unit slice
+                Process slice = p;
+                slice.arrivalTime = currentTime;
+                slice.burstTime = 1;
+                timeline.push_back(slice);
+
                 p.remainingTime--;
                 currentTime++;
                 if(p.remainingTime > 0) pq.enqueue(p);
@@ -152,6 +181,12 @@ void Scheduler::runPriority(ProcessList &masterList,  bool preemptive) {
             } else {
                 Process p = pq.dequeue();
     
+                // Log full slice
+                Process slice = p;
+                slice.arrivalTime = currentTime;
+                slice.burstTime = p.burstTime;
+                timeline.push_back(slice);
+
                 p.waitingTime = currentTime - p.arrivalTime;
                 currentTime += p.burstTime;
                 p.completionTime = currentTime;
@@ -166,16 +201,17 @@ void Scheduler::runPriority(ProcessList &masterList,  bool preemptive) {
             }
         }
     }
-    Scheduler::diplayStats(completedProcesses);
+    return completedProcesses;
 }
 
-void Scheduler::roundRobin(ProcessList &masterList, int quantom) {
+ProcessList Scheduler::roundRobin(ProcessList &masterList, int quantom) {
     ProcessQueue readyQueue;
     int currentTime = 0;
     int completed = 0;
     Node* it = masterList.getHead();
     int total = masterList.getSize();
     ProcessList completedProcesses;
+    timeline.clear();
 
     while(completed < total) {
         // Load processes that have arrived by now
@@ -187,6 +223,13 @@ void Scheduler::roundRobin(ProcessList &masterList, int quantom) {
         if(!readyQueue.isEmpty()) {
             Process p = readyQueue.dequeue();
             int timeToRun = (p.remainingTime < quantom) ? p.remainingTime : quantom;
+            
+            // Log slice
+            Process slice = p;
+            slice.arrivalTime = currentTime; // Start Time
+            slice.burstTime = timeToRun;     // Duration
+            timeline.push_back(slice);
+
             p.remainingTime -= timeToRun;
             currentTime += timeToRun;
 
@@ -211,5 +254,5 @@ void Scheduler::roundRobin(ProcessList &masterList, int quantom) {
             }
         }
     }
-    Scheduler::diplayStats(completedProcesses);
+    return completedProcesses;
 }

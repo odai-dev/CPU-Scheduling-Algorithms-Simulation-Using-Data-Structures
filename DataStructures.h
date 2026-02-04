@@ -37,7 +37,9 @@ private:
     int count;
 public:
     ProcessList() ;
-    void addProcess(Process p);
+    void addProcess(Process p); // Sorted insert
+    void push_back(Process p);  // Append to end
+    void clear();
     Node* getHead();
     int getSize();
 };

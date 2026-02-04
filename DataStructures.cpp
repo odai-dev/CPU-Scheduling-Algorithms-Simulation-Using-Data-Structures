@@ -63,13 +63,41 @@ bool ProcessQueue::isEmpty() {
 
 ProcessList::ProcessList() : head(nullptr), count(0) {}
 
+void ProcessList::clear() {
+    Node* current = head;
+    while (current != nullptr) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+    head = nullptr;
+    count = 0;
+}
+
 void ProcessList::addProcess(Process p) {
     Node* newNode = new Node(p);
-    if(head == NULL) {
+    
+    if (head == nullptr || head->data.arrivalTime > p.arrivalTime) {
+        newNode->next = head;
+        head = newNode;
+    } else {
+        Node* current = head;
+        while (current->next != nullptr && current->next->data.arrivalTime <= p.arrivalTime) {
+            current = current->next;
+        }
+        newNode->next = current->next;
+        current->next = newNode;
+    }
+    count++;
+}
+
+void ProcessList::push_back(Process p) {
+    Node* newNode = new Node(p);
+    if (head == nullptr) {
         head = newNode;
     } else {
         Node* temp = head;
-        while (temp->next != nullptr){
+        while (temp->next != nullptr) {
             temp = temp->next;
         }
         temp->next = newNode;
